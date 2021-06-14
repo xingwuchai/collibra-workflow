@@ -34,16 +34,12 @@ for (Map votingResult : votingResults) {
   String voterComment = votingResult.comment
   loggerApi.info(prefix + 'voter=' + voterName + ', approved=' + approved + ', comment=' + voterComment)
  
-  User user = userApi.findUsers(FindUsersRequest.builder()
-	.name(voterName)
-	.build())
-	.getResults()
-	.first()
-		
-  loggerApi.info(prefix + 'found user=' + user.getId() + ' ' + user.getLastName() + ' ' + user.getFirstName())
+  User user = userApi.getUserByUsername(voterName)
+	
+  loggerApi.info(prefix + 'found user=' + user.id + ' ' + user.getLastName() + ' ' + user.getFirstName())
   Comment comment = commentApi.findComments(FindCommentsRequest.builder()
     .baseResourceId(item.id)
-    .userId(user.getId())
+    .userId(user.id)
     .rootComment(true)
 	.limit(1)
 	.sortOrder(SortOrder.ASC)

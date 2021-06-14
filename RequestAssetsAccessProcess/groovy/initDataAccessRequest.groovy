@@ -91,14 +91,14 @@ if (securityClassifications != null && !securityClassifications.isEmpty()) {
 
 // we may want to move the Data Access to another place, (default is Business Analyst Cimmunity)
 // we are doing the same plave as the Data Set for now
-// def domainId = requestedDataSet.getDomain().getId()
+def domainId = requestedDataSet.getDomain().getId()
 Asset dataAccess = assetApi.getAsset(item.id)
 String dataAccessName = execution.getVariable('gvRequestedDataAccessName')
 assetApi.changeAsset(ChangeAssetRequest.builder()
   .name(dataAccessName)
   .displayName(dataAccessName)
   .statusId(string2Uuid(STATUS_INVALID))
-//  .domainId(domainId)
+  .domainId(domainId)
   .id(item.id)
   .build())
 execution.setVariable('dataAccess', dataAccess)

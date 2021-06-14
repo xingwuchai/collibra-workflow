@@ -23,6 +23,8 @@ Set validators = new HashSet()
 for (Relation relation : relations) {
   // the data set is the source of the relation
   Asset sourceDataSet = assetApi.getAsset(relation.source.id)
+  User user = userApi.getUser(sourceDataSet.getCreatedBy())
+  validators.add(user.getUserName())
   if (sourceDataSet != null && hasParentDataSetType(sourceDataSet)) {
     validators.addAll(findValidatorsForDataset(sourceDataSet))
   }
