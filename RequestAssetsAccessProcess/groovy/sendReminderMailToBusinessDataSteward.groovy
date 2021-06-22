@@ -1,5 +1,5 @@
 
-def usersIds = users.getUserIds("user(${techSteward})")
+def usersIds = users.getUserIds("user(${gvDataAccessBusinessDataStewards})")
 if (usersIds.isEmpty()){
   loggerApi.warn('No users to send a mail to, no mail will be send')
 } else {

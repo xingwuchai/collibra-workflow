@@ -1,11 +1,7 @@
-String prefix = 'scripttask, checkAllAccessGranted, '
-loggerApi.info(prefix + 'started')
 
-int total = execution.getVariable('techStewards').size()
-int currentCount = execution.getVariable('grantedAccessCounter')
-execution.setVariable('grantedAccessCounter', ++currentCount)
+int total = execution.getVariable('gvAllDataAccessTechnicalDataStewards').size()
+int currentCount = execution.getVariable('gvGrantedAccessCounter')
+execution.setVariable('gvGrantedAccessCounter', ++currentCount)
 if (currentCount == total) {
-  execution.setVariable('allAccessGranted', true)
+  execution.setVariable('gvAllAccessGranted', true)
 }
-
-loggerApi.info(prefix + 'ended')

@@ -3,20 +3,15 @@ import com.collibra.dgc.core.api.dto.instance.responsibility.FindResponsibilitie
 import com.collibra.dgc.core.api.model.ResourceType
 import com.collibra.dgc.core.api.model.user.User
 
-String prefix = 'scripttask, checkIfDataAnalystRoleIsAlreadyAssigned, '
-loggerApi.info(prefix + 'started')
-
 User user = userApi.getUserByUsername(requester)
 
-def dataElement = execution.getVariable('dataElement')
-
-DATA_ANALYST_LEVEL_2_ROLE_ID = string2Uuid('00000000-0000-0000-0000-000000005062')
+def dataElementId = execution.getVariable('dataElement')
 
 def result
   try {
     def responsibilities = responsibilityApi.findResponsibilities(FindResponsibilitiesRequest.builder()
-      .roleIds([DATA_ANALYST_LEVEL_2_ROLE_ID])
-      .resourceIds([string2Uuid(dataElement)])
+      .roleIds([string2Uuid(execution.getVariable('gvRoleIdDataAnalystlevel2'))])
+      .resourceIds([dataElementId])
       .ownerIds([user.id])
       .build()).results
     def users = responsibilities.collect { getUserFromResponsibility(it) }.findAll()
@@ -25,7 +20,7 @@ def result
     result = false
   }
 
-  execution.setVariable('dataAnalystRoleAssigned', result)
+  execution.setVariable('gvDataAnalystRoleAssigned', result)
 
   def getUserFromResponsibility(responsibility) {
     if (ResourceType.User == responsibility.owner.resourceType) {
@@ -42,4 +37,3 @@ def result
 
 result
 
-loggerApi.info(prefix + 'ended')
