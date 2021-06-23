@@ -53,7 +53,7 @@ if (approvedApproveRejectByDataTrustee || rejectedApproveRejectByDataTrustee) {
     }
   }
 }
-
+  
 execution.setVariable('gvDecisionMaker', decisionMaker)
 execution.setVariable('gvDecisionDate', currentDate)
 execution.setVariable('gvDecisionApproved', approved)

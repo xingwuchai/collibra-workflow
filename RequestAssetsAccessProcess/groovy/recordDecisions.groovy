@@ -18,12 +18,6 @@ def domainId = dataAccess.getDomain().getId()
 User decisionMaker = userApi.getUserByUsername(execution.getVariable('gvDecisionMaker'))
 String requestShortName = execution.getVariable('requestShortName')
 
-commentApi.addComment(AddCommentRequest.builder()
-  .content(execution.getVariable('gvDecisionComment').toString())
-  .baseResourceId(item.id)
-  .baseResourceType(item.getType())
-  .build())
-
 Asset approvalDecision = assetApi.addAsset(AddAssetRequest.builder()
   .name(dataAccessName + '.' + decisionMaker.getUserName())
   .displayName(dataAccessName + '.' + decisionMaker.getUserName())

@@ -1,14 +1,20 @@
 import com.collibra.dgc.core.api.model.instance.Asset
 
-Asset dataAsset = execution.getVariable('gvDataSetAsset')
 Set assetIds = []
-assetIds.add(dataAsset.getId())
 
 Boolean isDataSet = execution.getVariable('gvContainsDataSet')
-List dataElements = execution.getVariable('gvDataElements')
-if (isDataSet && dataElements != null && dataElements.size()> 0) {
-   dataElements.each { dataElement ->
-	 assetIds.add(dataElement.getId())
-   }
+if (isDataSet) {
+  Asset datasetAsset = execution.getVariable('gvDataSetAsset')
+  assetIds.add(datasetAsset.getId())
+  List dataElements = execution.getVariable('gvDataElements')
+  if (dataElements != null && dataElements.size()> 0) {
+    dataElements.each { dataElement ->
+      assetIds.add(dataElement.getId())
+    }
+  }
+} else {
+  Asset reportAsset = execution.getVariable('gvReportAsset')
+  assetIds.add(reportAsset.getId())
 }
+
 execution.setVariable('gvDataAnalystLevel2Assets', assetIds)

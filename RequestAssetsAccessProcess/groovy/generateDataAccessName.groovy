@@ -66,22 +66,30 @@ String currentDate = date.format(FORMATTER)
 
 // sequence
 String namePrefix = communityName + '.' + requestedDataAsset.getName() + '.' + lastName + '.' + currentDate
-List result = assetApi.findAssets(FindAssetsRequest.builder()
+List dataAccesses = assetApi.findAssets(FindAssetsRequest.builder()
   //.communityId(communityId)
   //.domainId(domainId)
+  .typeIds([string2Uuid(execution.getVariable('gvAssetTypeIdDataAccess'))])
   .name(namePrefix)
   .nameMatchMode(MatchMode.START)
   .excludeMeta(false)
   .limit(Integer.MAX_VALUE)
   .build()).getResults()
 
-int sequence = result.size() + 1
+int maxIndex = 0
+if (dataAccesses != null && dataAccesses.size() >0) {
+  loggerApi.info('found ' + dataAccesses.size() + ' data access(es) which start(s) with ' + namePrefix)
+  for (Asset dataAccess : dataAccesses) {
+    int index = dataAccess.getName().tokenize('.')[-1] as Integer
+	maxIndex = Math.max(maxIndex, index)
+  }
+} else {
+  loggerApi.info('found 0 data access which starts with ' + namePrefix)	
+}
 
-loggerApi.info('found ' + result.size() + ' starts with ' + namePrefix)
-
+int sequence = maxIndex + 1
 String name = communityName + '.' + requestedDataAsset.getName() + '.' + lastName + '.' + currentDate + '.' + sequence
 
 execution.setVariable('gvRequestedDataAccessName', name)
 
 loggerApi.info('Access name is going to be set to ' + name)
-

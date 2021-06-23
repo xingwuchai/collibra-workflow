@@ -82,6 +82,7 @@ if (dataAssetTypeId in dataSetChildrenTypes) {
   loggerApi.info('data asset in the basket, ' + dataAsset.getId())
   execution.setVariable('gvDataSetAsset', dataAsset)
   execution.setVariable('gvContainsDataSet', true)
+  execution.setVariable('gvContainsReport', false)
   List dataElements = dataSetApi.findDataElements(FindDataElementsRequest.builder()
   .dataSetId(dataAsset.getId())
   .limit(Integer.MAX_VALUE)
@@ -112,6 +113,7 @@ if (dataAssetTypeId in dataSetChildrenTypes) {
   loggerApi.info('report in the basket, ' + dataAsset.getId())
   execution.setVariable('gvReportAsset', dataAsset)
   execution.setVariable('gvContainsReport', true)
+  execution.setVariable('gvContainsDataSet', false)
 } else {
   execution.setVariable('gvValidDataAsset', false)
   execution.setVariable('gvReasonForInvalidDataAsset5', 'workflowDataBasketUnsupportedAssetTypes')

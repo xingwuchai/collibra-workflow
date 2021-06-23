@@ -15,6 +15,7 @@ RELATION_TYPE_ROLE_GOVERNS_SOURCE_TYPE_NAME = 'Terms of Use'
 ASSET_TYPE_DATA_SET = 'Data Set'
 ASSET_TYPE_REPORT = 'Report'
 ASSET_TYPE_APPROVAL_DECISION = 'Approval Decision'
+ASSET_TYPE_DATA_ACCESS = 'Data Access'
 
 // statuses
 STATUS_ACCEPTED = 'Accepted'
@@ -106,6 +107,7 @@ execution.setVariable('gvRelationTypeIdRoleGoverns', getRelationTypeId(RELATION_
 execution.setVariable('gvAssetTypeIdDataSet', getAssetTypeIdByName(ASSET_TYPE_DATA_SET))
 execution.setVariable('gvAssetTypeIdReport', getAssetTypeIdByName(ASSET_TYPE_REPORT))
 execution.setVariable('gvAssetTypeIdApprovalDecision', getAssetTypeIdByName(ASSET_TYPE_APPROVAL_DECISION))
+execution.setVariable('gvAssetTypeIdDataAccess', getAssetTypeIdByName(ASSET_TYPE_DATA_ACCESS))
 
 execution.setVariable('gvStatusIdAccepted', getStatusIdByName(STATUS_ACCEPTED))
 execution.setVariable('gvStatusIdRejected', getStatusIdByName(STATUS_REJECTED))
@@ -141,7 +143,7 @@ execution.setVariable('gvUserGroupDataPrivacyOfficer', 'Data Privacy Officer')
 
 String userTaskDocApproveRejectReroutePrivacy =
   '<div>Please approve or reject the request, and add your comment here.</div>' +
-  '<div>If you need to consult with the Privacy officer, please click the Reroute button.</div>'
+  '<div>If you need to consult with the Data Privacy officer, please click the Reroute button.</div>'
 execution.setVariable('gvUserTaskDocApproveRejectReroutePrivacy', userTaskDocApproveRejectReroutePrivacy)
 
 String userTaskDocApproveRejectRerouteDataTrustee =
@@ -164,6 +166,7 @@ loggerApi.info('gvRelationTypeIdRoleGoverns=' + execution.getVariable('gvRelatio
 loggerApi.info('gvAssetTypeIdDataSet=' + execution.getVariable('gvAssetTypeIdDataSet'))
 loggerApi.info('gvAssetTypeIdReport=' + execution.getVariable('gvAssetTypeIdReport'))
 loggerApi.info('gvAssetTypeIdApprovalDecision=' + execution.getVariable('gvAssetTypeIdApprovalDecision'))
+loggerApi.info('gvAssetTypeIdDataAccess=' + execution.getVariable('gvAssetTypeIdDataAccess'))
 
 loggerApi.info('gvStatusIdAccepted=' + execution.getVariable('gvStatusIdAccepted'))
 loggerApi.info('gvStatusIdRejected=' + execution.getVariable('gvStatusIdRejected'))
