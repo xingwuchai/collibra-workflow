@@ -180,13 +180,18 @@ if (userGroupList != null && userGroupList.size() > 0) {
     users.each { user->
 	  dataPrivacyOfficers.add(user.getUserName())
     }
+    List userExpression = dataPrivacyOfficers.collect {"user(${it})"}
+    execution.setVariable('gvDataPrivacyOfficerUsers', userExpression.join(','))
+    loggerApi.info('gvDataPrivacyOfficerUsers=' + userExpression.join(','))
+  } else {
+    validDataAsset = false
+    execution.setVariable('gvReasonForInvalidDataAsset4', 'workflowNoDataPrivacyOfficers')
+    loggerApi.info('No users in the data privacy officer')
   }
-  List userExpression = dataPrivacyOfficers.collect {"user(${it})"}
-  execution.setVariable('gvDataPrivacyOfficerUsers', userExpression.join(','))
-  loggerApi.info('gvDataPrivacyOfficerUsers=' + userExpression.join(','))
 } else {
   validDataAsset = false
   execution.setVariable('gvReasonForInvalidDataAsset4', 'workflowNoDataPrivacyOfficers')
+  loggerApi.info('No data privacy officer group')
 }
 
 execution.setVariable('gvValidDataAsset', validDataAsset)
