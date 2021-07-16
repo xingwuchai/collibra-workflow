@@ -1,0 +1,40 @@
+#set($baseUrl = $applicationComponent.getBaseURL())
+
+#if ($item.url)
+	#if ($user.isGuestUser())
+		#set($url = $item.url + '?signinrequired=false&task-id=' + $task.getId() + '&user-id=' + $user.getId())
+	#else
+		#set($url = $item.url + '?signinrequired=true&task-id=' + $task.getId())
+	#end
+#else
+	#if ($user.isGuestUser())
+		#set($url = ${baseUrl} + 'tasks/my?signinrequired=false&user-id=' + $user.getId())
+	#else
+		#set($url = ${baseUrl} + 'tasks/my?signinrequired=true')
+	#end
+#end
+
+## get the role and message from the task title
+#if ($task.title == "Approve, Reject, or Reroute to Privacy")
+	<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">
+	  Dear Business Data Steward,
+	</p>
+	<p>
+	  A new Data Access Request has been made in Collibra. Please go to <a href='$item.url'>this page</a> to review the request. Then, you can Approve, Reject or reroute it to the Privacy Officer for input that will be added to the Comments section at the bottom of the page.
+	</p>
+#elseif ($task.title == "Review Request and Add Comment")
+	<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">
+	  Dear Data Privacy Officer,
+	</p>
+	<p>
+		A new Data Access Request has been made and the Business Data Steward is asking for your input.  Please visit <a href="$item.url">this page</a> to review the request and then add your input in the Comments Section at the bottom of the page. After completing the task, click the DONE button.
+	</p>
+#else
+	<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">
+    $msg.get("workflow.notifications.taskassigned.newtask", "<a href='$url'>$task.title</a>")
+  </p>
+  #if ($item.id)
+    $msg.get("workflow.notifications.taskassigned.businessitem", "<a href='$item.url'>$item.name</a>")
+  #end
+  #if ($task.description) $task.description #end
+#end

@@ -1,0 +1,7 @@
+#if ($votingSuccess)
+    #set($result="$msg.get('workflow.notifications.votingsubprocess.approved')")
+#else
+    #set($result="$msg.get('workflow.notifications.votingsubprocess.rejected')")
+#end
+
+$msg.get("workflow.notifications.votingsubprocess.result.datausageapproval", "<a href='$item.url'>$item.name</a>", "'$result'")

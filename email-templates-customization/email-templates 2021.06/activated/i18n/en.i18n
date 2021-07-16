@@ -1,0 +1,6 @@
+activated.content.header = Your account has been activated!
+activated.content.subject = Account {0} disabled
+activated.content.admin.password = This action has been performed by the system administrator. Your new password is {0}.
+activated.content.signin.collibra = Collibra
+activated.content.signin.profilepage = profile page
+activated.content.signin.proposal = You can now sign in to {0} and edit your {1}.

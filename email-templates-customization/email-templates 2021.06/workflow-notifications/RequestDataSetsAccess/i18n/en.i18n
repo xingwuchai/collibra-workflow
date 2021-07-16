@@ -1,0 +1,4 @@
+requestDataSets.subject = Request Data Sets Access
+requestDataSets.request.approved = A data usage request for {0} has been approved.
+requestDataSets.request.rejected = The data usage request for {0} has been rejected.
+requestDataSets.referToAssetComments = Please refer to the asset comments for more information.

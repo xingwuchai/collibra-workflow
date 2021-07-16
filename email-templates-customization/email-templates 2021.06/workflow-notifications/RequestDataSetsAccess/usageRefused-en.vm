@@ -1,0 +1,3 @@
+<p style="padding:0;line-height:20px">$msg.get("requestDataSets.request.rejected", "<a href='$item.url'>$item.name</a>")<br/>
+    $msg.get("requestDataSets.referToAssetComments")
+</p>

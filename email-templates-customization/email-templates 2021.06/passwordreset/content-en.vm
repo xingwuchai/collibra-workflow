@@ -1,0 +1,14 @@
+#parse("email-templates/common/core/common|en")
+
+<h2 style="margin:0;font-size:14px;font-weight:700;line-height:22px">$msg.get("email.password.reset.title")</h2>
+<br>
+<p style="margin:0;line-height:20px"><b>$msg.get("email.password.reset.note")</b>: $msg.get("email.password.reset.ignore")</p>
+<br>
+<p style="margin:0;line-height:20px">$msg.get("email.password.reset.username", "<b>${user.getUserName()}</b>")</p>
+<p style="margin:0;line-height:20px">
+  $msg.get("email.password.reset.url"):<br>
+  <a href='$url' style='color:#006ee2;text-decoration:none' target='_blank'>$url</a>.
+</p>
+<br>
+<br>
+#emailGreetings()

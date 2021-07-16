@@ -1,0 +1,2 @@
+jobs.default.subject = Your job {0} has changed to state {1}.
+jobs.default.returned = Your job returned:

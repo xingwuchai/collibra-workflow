@@ -1,0 +1,2 @@
+jobs.canceled.subject = Your job {0} was cancelled.
+jobs.canceled.returned = Your job returned:

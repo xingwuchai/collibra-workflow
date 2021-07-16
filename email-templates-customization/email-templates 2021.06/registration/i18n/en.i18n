@@ -1,0 +1,4 @@
+registration.content.subject = Welcome, {0}, to Collibra
+registration.content.header = Thank You for joining Collibra!
+registration.content.username = Your user name is {0}.
+registration.content.complete = To complete your account activation, please click the link below, or copy and paste it into the address bar of your web browser:

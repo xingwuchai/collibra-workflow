@@ -1,0 +1,1 @@
+$msg.get("jobs.default.subject", "'$job.getId()'", "'$job.getState()'")

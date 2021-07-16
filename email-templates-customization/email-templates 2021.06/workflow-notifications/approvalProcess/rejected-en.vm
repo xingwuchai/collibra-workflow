@@ -1,0 +1,1 @@
+$msg.get("workflow.notifications.approvalprocess.rejected", "<a href='$item.url'>$item.name</a>")

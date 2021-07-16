@@ -1,0 +1,4 @@
+<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">$msg.get("loginattempt.admin.subject.title", "'$user.getUserName()'")</p>
+<br>
+<p style="margin:0;line-height:20px">$msg.get("loginattempt.admin.content.wronglogin", "'$user.getUserName()'")</p>
+<p style="margin:0;line-height:20px">$msg.get("loginattempt.admin.reenable")</p>

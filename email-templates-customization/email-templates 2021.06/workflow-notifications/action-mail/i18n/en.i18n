@@ -1,0 +1,9 @@
+task.new.title.non-grouped = You have a task waiting to complete!
+task.new.assigned.asset = The task applies to the asset {0} with status {1} and type {2}.
+task.new.assigned.domain = The task applies to the domain {0} within the {1} community.
+task.new.assigned.community = The task applies to the community {0}.
+task.new.actions = You can complete the task by clicking one of the links below:
+
+activity.title = Activity
+attributes.title = Asset Attributes
+relations.title = Asset Relations

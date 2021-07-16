@@ -1,0 +1,251 @@
+#parse("email-templates/library/displayComment")
+
+#set($baseUrl = $applicationComponent.getBaseURL())
+#set($urlmap = {
+    "TE": "asset/",
+    "VC": "domain/",
+    "CO": "community/",
+    "UR": "profile/",
+    "GR": "group/"
+})
+#set($typeMap = {
+    "WI": {
+        "ADD": $msg.get("history.started"),
+        "UPDATE": $msg.get("history.updated"),
+        "DELETE": $msg.get("history.deleted")
+    },
+    "default": {
+        "ADD": $msg.get("history.added"),
+        "UPDATE": $msg.get("history.updated"),
+        "DELETE": $msg.get("history.deleted")
+    }
+})
+
+#macro(renderType $activity)
+    #set($fieldType = $activity.getType())
+    #set($desc = $activity.getDescription())
+    #set($affectedType = $desc.affected.type)
+
+    #set($temp = false)
+    #set($temp = $typeMap.get($affectedType))
+
+    #if($temp)
+        $temp.get($fieldType)
+    #else
+        $typeMap.default.get($fieldType)
+    #end
+#end
+
+#macro(getComplexRelationValue $desc)
+    #set($targetRole = "")
+    #set($targetRole = $desc.role)
+
+    #set($roles = [])
+    #set($roles = $desc.legs.keySet())
+
+    #foreach($role in $roles)
+        #if($role != $targetRole)
+            #foreach($leg in $desc.legs.get($role))
+                #set($value = $leg.name)
+                #set($valueUrl = "${baseUrl}${urlmap.get($leg.type)}${leg.id}")
+                <a href="${valueUrl}" target="_blank" style="color:#006EC2;text-decoration:none">$value</a>
+            #end
+        #end
+    #end
+#end
+
+#macro(getRelationValue $desc)
+    #set($value = "")
+    #set($value = $desc.target.name)
+
+    #set($valueUrl = "${baseUrl}${urlmap.get($desc.target.type)}${desc.target.id}")
+
+    <a href="${valueUrl}" target="_blank" style="color:#006EC2;text-decoration:none">$value</a>
+#end
+
+#macro(getMemberValue $desc)
+    #set($value = "")
+    #set($value = $desc.people.name)
+
+    #set($valueUrl = "${baseUrl}${urlmap.get($desc.people.type)}${desc.people.id}")
+
+    <a href="${valueUrl}" target="_blank" style="color:#006EC2;text-decoration:none">$value</a>
+#end
+
+#macro(getAttributeValue $desc)
+    #set($isDateAttribute = $desc.kind == "DATE")
+
+    #set($oldValue = "")
+    #set($oldValue = $desc.get("old"))
+
+    #set($newValue = "")
+    #set($newValue = $desc.get("new"))
+
+    #if(${oldValue.name})
+        #set($oldValue = $oldValue.name)
+    #end
+
+    #if(${newValue.name})
+        #set($newValue = $newValue.name)
+    #end
+
+    #if($isDateAttribute)
+        #if($!{oldValue} != "")
+            #set($oldValue = $datetool.format("short_date", $typetool.parseLong("$oldValue"), $userComponent.getCurrentLocale()))
+        #end
+        #if($!{newValue} != "")
+            #set($newValue = $datetool.format("short_date", $typetool.parseLong("$newValue"), $userComponent.getCurrentLocale()))
+        #end
+    #end
+
+
+    #if($!{oldValue} != "" && $!{newValue} != "")
+        $!{oldValue} > $!{newValue}
+    #elseif($!{newValue} == "")
+        $!{oldValue}
+    #else
+        $!{newValue}
+    #end
+#end
+
+#macro(renderValue $activity)
+    #set($desc = $activity.getDescription())
+
+    #set($isRelation = false)
+    #set($isRelation = $desc.affected.type == "RE")
+
+    #set($isComplexRelation = false)
+    #set($isComplexRelation = $desc.legs)
+
+    #set($isMemberChange= false)
+    #set($isMemberChange= $desc.affected.type == "ME")
+
+    #set($isCommentChange = false)
+    #set($isCommentChange = $activity.getField().toLowerCase() == "comment")
+
+    #if($isRelation)
+        #if($isComplexRelation)
+            #getComplexRelationValue($desc)
+        #else
+            #getRelationValue($desc)
+        #end
+    #elseif($isMemberChange)
+        #getMemberValue($desc)
+    #else
+        #set($value = "#getAttributeValue($desc)")
+
+        #if($isCommentChange)
+            #set($value = "#displayComment($value, true)")
+        #end
+
+        $!{value}
+    #end
+#end
+
+#macro(renderField $activity)
+    #set($desc = $activity.getDescription())
+
+    #set($field = false)
+    #set($field = $activity.getField().toLowerCase())
+
+    #if($field)
+    ## first letter uppercase
+        #set($field = $field.substring(0, 1).toUpperCase() + $field.substring(1))
+    #else
+        #if($desc.affected.type == "WI")
+            #set($field = "${msg.get('history.wf')}: ${desc.affected.name}")
+        #elseif($desc.affected.type == "ME")
+            #set($field = "${msg.get('history.role')}: ${desc.role.name}")
+        #elseif($desc.affected.type == "RE")
+            #if($desc.complexRelation)
+                #set($field = "${msg.get('history.cr')}: ${desc.complexRelation}")
+            #else
+                #set($field = "${msg.get('history.relation')}: ${desc.coRole}")
+            #end
+        #else
+            #set($field = "")
+        #end
+    #end
+
+    $!{field}
+#end
+
+#macro(renderContextResource $activity)
+    #set($desc = $activity.getDescription())
+
+    #set($userName = "")
+    #set($userName = $activity.getUser().getName())
+
+    #set($userUrl = "#")
+    #set($userUrl = $activity.getUserUrl())
+
+    #set($affectedName = "")
+    #set($affectedName = $activity.getAffected().getName())
+
+    #set($affectedUrl = "#")
+    #set($affectedUrl = $activity.getAffectedUrl())
+
+    #set($field = false)
+    #set($field = $activity.getField().toLowerCase())
+
+    #if($field)
+    ## first letter uppercase
+        #set($field = $field.substring(0, 1).toUpperCase() + $field.substring(1))
+    #else
+        #if($desc.affected.type == "WI")
+            #set($field = "${msg.get('history.wf')}: ${affectedName}")
+            #set($affectedName = $desc.businessItem.name)
+            #set($affectedUrl = "${baseUrl}${urlmap.get($desc.businessItem.type)}${desc.businessItem.id}")
+        #elseif($desc.affected.type == "ME")
+            #set($field = "${msg.get('history.role')}: ${desc.role.name}")
+            #set($affectedName = $desc.resource.name)
+            #set($affectedUrl = "${baseUrl}${urlmap.get($desc.resource.type)}${desc.resource.id}")
+        #elseif($desc.affected.type == "RE")
+            #if($desc.complexRelation)
+                #set($affectedUrl = "${baseUrl}${urlmap.get($desc.target.type)}${$desc.target.id}")
+                #set($affectedName = "${desc.target.name}")
+                #set($field = "${msg.get('history.cr')}: ${desc.complexRelation}")
+            #else
+                #set($affectedName = $desc.source.name)
+                #set($affectedUrl = "${baseUrl}${urlmap.get($desc.source.type)}${desc.source.id}")
+                #set($field = "${msg.get('history.relation')}: ${desc.coRole}")
+            #end
+        #end
+    #end
+
+    <a href="${affectedUrl}" target="_blank" style="color:#006EC2;text-decoration:none">$!{affectedName}</a>
+#end
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 auto">
+    <tbody>
+        <tr style="background-color:white">
+            <td style="padding:22px 10px 15px 35px;font-weight:bold;border-bottom:1px solid #BBC3C7">$msg.get("history.field")</td>
+            <td style="padding:22px 10px 15px 10px;font-weight:bold;border-bottom:1px solid #BBC3C7">$msg.get("history.type")</td>
+            <td style="padding:22px 10px 15px 10px;font-weight:bold;border-bottom:1px solid #BBC3C7">$msg.get("history.contextresource")</td>
+            <td style="padding:22px 10px 15px 10px;font-weight:bold;border-bottom:1px solid #BBC3C7">$msg.get("history.value")</td>
+            <td style="padding:22px 10px 15px 10px;font-weight:bold;border-bottom:1px solid #BBC3C7">$msg.get("history.changedby")</td>
+            <td style="padding:22px 35px 15px 10px;font-weight:bold;border-bottom:1px solid #BBC3C7">$msg.get("history.date")</td>
+        </tr>
+        #foreach($activity in $activities)
+            #set($date = $activity.getDate())
+            <tr style="background-color:white">
+                <td style="padding:12px 10px 12px 35px;border-bottom:1px solid #ECEEEF">
+                    #renderField($activity)
+                </td>
+                <td style="padding:12px 10px;border-bottom:1px solid #ECEEEF">
+                    #renderType($activity)
+                </td>
+                <td style="padding:12px 10px;border-bottom:1px solid #ECEEEF">
+                    #renderContextResource($activity)
+                </td>
+                <td style="padding:12px 10px;border-bottom:1px solid #ECEEEF">
+                    #renderValue($activity)
+                </td>
+                <td style="padding:12px 10px;border-bottom:1px solid #ECEEEF">
+                    <a href="${userUrl}" target="_blank" style="color:#006EC2;text-decoration:none">$userName</a>
+                </td>
+                <td style="padding:12px 35px 12px 10px;border-bottom:1px solid #ECEEEF">$date</td>
+            </tr>
+        #end
+    </tbody>
+</table>

@@ -1,0 +1,39 @@
+#macro (displayComment $commentContent $disableUrl)
+    #set($macro.matcher = $PatternClass.compile("\[@User:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b\]").matcher($commentContent))
+    #set($macro.mentionsCount = $StringUtilsClass.countOccurrencesOf($commentContent, "[@User:"))
+    #set($macro.parsedContent = $commentContent)
+    #foreach ($i in [1..$macro.mentionsCount])
+        #if ($macro.matcher.find())
+            #set($macro.idStartIndex = 7)
+            #set($macro.idEndIndex = 43)
+            #set($macro.id = $macro.matcher.group().substring($macro.idStartIndex, $macro.idEndIndex))
+            #set($macro.uuid = $UUIDClass.fromString($macro.id))
+
+            #if($userApi.exists($macro.uuid))
+                #set($macro.user = $userApi.getUser($macro.uuid))
+                #set($baseUrl = $applicationComponent.getBaseURL())
+
+                #if($stringtool.isEmptyOrNull($macro.user.getFirstName()) == false || $stringtool.isEmptyOrNull($macro.user.getLastName()) == false)
+                    #set($macro.mention = "$macro.user.getFirstName() $macro.user.getLastName()")
+                #else
+                    #set($macro.mention = "$macro.user.getUserName()")
+                #end
+
+                #if(!$macro.user.isEnabled())
+                    #set($macro.mention = "${macro.mention} ($msg.get('ui.core.accountDisabled'))")
+                #end
+
+                #set($macro.mention = "@${macro.mention}")
+
+                #if($!{disableUrl} == false || "$!{disableUrl}" == "")
+                    #set($macro.mention = "<a href='${baseUrl}profile/${macro.user.getId()}' target='_blank' style='color: #006EC2; text-decoration: none'>$macro.mention</a>")
+                #end
+            #else
+                #set($macro.mention = "@$msg.get('ui.core.deleteduser')")
+            #end
+
+            #set($macro.parsedContent = $macro.parsedContent.replace($macro.matcher.group(), $macro.mention))
+        #end
+    #end
+    $macro.parsedContent
+#end

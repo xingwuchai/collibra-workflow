@@ -1,0 +1,4 @@
+loginattempt.admin.subject = Account {0} disabled
+loginattempt.admin.subject.title = User {0} has been disabled!
+loginattempt.admin.content.wronglogin = Too many wrong log-in attempts have been made for account {0}. Because of this, the account has been disabled.
+loginattempt.admin.reenable = You, as an administrator, can re-enable this account in the Settings pages.

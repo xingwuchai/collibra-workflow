@@ -1,0 +1,18 @@
+#parse("email-templates/common/core/common|en")
+
+#set($activationLink = $url)
+#set($baseUrl = $applicationComponent.getBaseURL())
+
+<h2 style="margin:0;font-size:14px;font-weight:700;line-height:22px">$msg.get("activated.content.header")</h2>
+<br>
+<p style="margin:0;line-height:20px">
+  #if($byAdmin)
+      $msg.get("activated.content.admin.password", "'$password'")
+  #end
+</p>
+<p style="margin:0;line-height:20px">
+    $msg.get("activated.content.signin.proposal", "<a href='${baseUrl}' style='color:#006EC2;text-decoration:none' target='_blank'>$msg.get('activated.content.signin.collibra')</a>", "<a href='${baseUrl}profile/$user.getId()' style='color: #0A92B7; text-decoration:none'>$msg.get('activated.content.signin.profilepage')</a>")
+</p>
+<br>
+<br>
+#emailGreetings()

@@ -1,0 +1,1 @@
+$msg.get("workflow.notifications.approvalprocess.approved", "<a href='$item.url'>$item.name</a>")

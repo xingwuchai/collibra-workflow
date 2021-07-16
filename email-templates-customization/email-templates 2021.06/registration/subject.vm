@@ -1,0 +1,1 @@
+$msg.get("registration.content.subject", "'$user.getFullName()'")

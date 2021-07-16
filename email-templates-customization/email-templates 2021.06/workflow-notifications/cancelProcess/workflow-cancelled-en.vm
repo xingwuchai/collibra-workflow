@@ -1,0 +1,1 @@
+$msg.get("workflow.notifications.cancelprocess.cancelled", "'$event.workflowDefinition.processId'", "<a href='$item.url'>$item.name</a>", "'$sender.fullName'")

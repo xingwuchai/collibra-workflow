@@ -1,0 +1,6 @@
+email.password.changed.subject = Password Successfully Updated
+email.password.changed.title.success = Your password has been updated successfully
+email.password.changed.content.success.admin = Your password has been changed by the administrator to {0}.
+email.password.changed.content.success.user = You have successfully updated your password. If you didn''t do this, please contact your system administrator.
+email.password.changed.content.signin.signin = sign in
+email.password.changed.content.signin.proposal = You can now {0} with user name {1} and your new password.

@@ -1,0 +1,12 @@
+#parse("email-templates/common/core/common|en")
+
+#set($activationLink = $url)
+
+<h2 style="margin:0;font-size:14px;font-weight:700;line-height:22px">$msg.get("registration.content.header")</h2>
+<br>
+<p style="margin:0;line-height:20px">$msg.get("registration.content.username", "<b>$user.getUserName()</b>")</p>
+<br>
+<p style="margin:0;line-height:20px">$msg.get("registration.content.complete")<br><a href='$activationLink' style='color:#006EC2;text-decoration:none' target='_blank'>$activationLink</a></p>
+<br>
+<br>
+#emailGreetings()

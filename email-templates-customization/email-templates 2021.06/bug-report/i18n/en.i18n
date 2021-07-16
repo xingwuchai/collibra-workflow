@@ -1,0 +1,11 @@
+bugreport.description = Description:
+bugreport.errormsg = Error message:
+bugreport.systeminfo = System Information:
+bugreport.version = Version:
+bugreport.buildnumber = Build number:
+bugreport.userhomedir = User home directory:
+bugreport.memoryusage = Memory usage:
+bugreport.operationsystem = Operating System:
+bugreport.java = Java:
+bugreport.browser = Browser:
+bugreport.stacktrace = Stacktrace:

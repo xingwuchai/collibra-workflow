@@ -1,0 +1,4 @@
+loginattempt.user.subject = Account disabled for Collibra
+loginattempt.user.subject.title = Your account has been disabled!
+loginattempt.user.content.wronglogin = Too many wrong log-in attempts have been made for your account. Because of this, your account has been disabled.
+loginattempt.user.content.contact = Please contact your system administrator to re-enable your account.

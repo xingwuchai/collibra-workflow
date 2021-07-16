@@ -1,0 +1,14 @@
+history.added = Added
+history.started = Started
+history.updated = Updated
+history.deleted = Deleted
+history.field = Field
+history.value = Value
+history.type = Type
+history.contextresource = Context resource
+history.changedby = Changed by
+history.date = Date
+history.wf = Workflow
+history.role = Role
+history.cr = Complex relation
+history.relation = Relation

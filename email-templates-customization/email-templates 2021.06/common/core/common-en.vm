@@ -1,0 +1,9 @@
+#macro(emailGreetings)
+    <p style="margin:0;line-height:20px">
+        $msg.get("email.regards"),
+        <br>
+        The Collibra Team
+        <br>
+        <a href="http://www.collibra.com/" style="color:#006EC2;text-decoration:none" target="_blank">http://www.collibra.com</a>
+    </p>
+#end

@@ -1,0 +1,31 @@
+<p style="margin:0;line-height:20px">
+  $msg.get("bugreport.description")<br/>
+  $description
+</p>
+
+#if($errorMessage)
+  <p style="margin:0;line-height:20px">
+    $msg.get("bugreport.errormsg")<br/>
+    $errorMessage
+  </p>
+#end
+
+#if($browser)
+  <p style="margin:0;line-height:20px">
+    $msg.get("bugreport.systeminfo")<br/><br/>
+    $msg.get("bugreport.version") $version<br/>
+    $msg.get("bugreport.buildnumber") $buildNumber<br/>
+    $msg.get("bugreport.userhomedir") $userHome<br/>
+    $msg.get("bugreport.memoryusage") $memory / $maxMemory<br/>
+    $msg.get("bugreport.operationsystem") $osName $osVersion ($osArch)<br/>
+    $msg.get("bugreport.java") $javaVendor ($javaVersion)<br/>
+    $msg.get("bugreport.browser") $browser<br/>
+  </p>
+#end
+
+#if($stacktrace)
+  <p style="margin:0;line-height:20px">
+    $msg.get("bugreport.stacktrace")<br/>
+    $stacktrace
+  </p>
+#end

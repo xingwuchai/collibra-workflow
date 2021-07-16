@@ -1,0 +1,1 @@
+$msg.get("workflow.notifications.escalationprocess.notify", "'$escalationWorkflowDefinitionSignifier'", "<a href='$item.url'>$item.name</a>", "'$escalationTaskCandidates'")

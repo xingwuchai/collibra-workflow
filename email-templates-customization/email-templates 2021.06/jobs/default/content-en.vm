@@ -1,0 +1,8 @@
+#parse("email-templates/common/core/common|en")
+
+<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">$msg.get("jobs.default.subject", "'$job.getId()'", "'$job.getState()'")</p>
+#if($job.getMessage())
+    <p style="margin:0;line-height:20px">$msg.get("jobs.default.returned")</p>
+    <p style="margin:0;line-height:20px">$job.getMessage()</p>
+#end
+#emailGreetings()

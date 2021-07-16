@@ -1,0 +1,104 @@
+#if ($user.isGuestUser())
+    #set($url = $item.url + '?signinrequired=false&task-id=' + $task.getId() + '&user-id=' + $user.getId())
+#else
+    #set($url = $item.url + '?signinrequired=true&task-id=' + $task.getId())
+#end
+
+<table border="0" cellpadding="3" cellspacing="0" width="100%">
+    <tbody>
+    <tr>
+        <td style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">$msg.get(
+            "task.new.title.non-grouped")</td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<table border="0" cellpadding="3" cellspacing="0" width="100%">
+    <tbody>
+    <tr>
+        <td style="padding:0px;line-height:20px">
+            <a href="$!url" target="_blank"
+               style="display:inline-block;padding-bottom:5px;color:#006EC2;text-decoration:none">$!{task.title}</a>
+            <br>
+            #if ($item.id)
+                #set($resource = $itemV1.resource)
+                #if ($typetool.isTerm($resource))
+                    $!msg.get(
+                        "task.new.assigned.asset",
+                        "<a href='$!{itemV1.url}' target='_blank'
+                            style='color:#006EC2;text-decoration:none'>$!{itemV1.name}</a>",
+                        "<b>$!{resource.status.signifier}</b>",
+                        "<b>$!{itemV1.conceptTypeName}</b>"
+                    ) ($!{resource.vocabulary.name} &gt; $!{resource.vocabulary.community.name})
+                #elseif($typetool.isVocabulary($resource))
+                    $!msg.get(
+                        "task.new.assigned.domain",
+                        "<a href='$!{itemV1.url}' target='_blank'
+                            style='color:#006EC2;text-decoration:none'>$!{itemV1.name}</a>",
+                        "$!{resource.vocabulary.community.name}"
+                    )
+                #elseif($typetool.isCommunity($resource))
+                    $!msg.get(
+                        "task.new.assigned.community",
+                        "<a href='$!{itemV1.url}' target='_blank'
+                            style='color:#006EC2;text-decoration:none'>$!{item.name}</a>"
+                    )
+                #end
+            #end
+
+            #if($includeActivityFilter)
+                <br>
+                <p style="margin:0;padding:10px 0 0 0;color:#0B212C;font-weight:600">$!msg.get('activity.title')</p>
+                #parse('email-templates/notification/content')
+                <br>
+            #end
+            #if($includeAttributes && $attributes.size() > 0)
+                <br>
+                <p style="margin:0;padding:10px 0 0 0;color:#0B212C;font-weight:600">$!msg.get('attributes.title')</p>
+                <table style="padding-top: 10px" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        #foreach($attribute in $attributes)
+                        <tr>
+                            <td style="width:30%;max-width:0;padding-top:5px;overflow-y:auto;text-overflow:ellipsis;white-space:nowrap">
+                                $attribute.getType().getName()
+                            </td>
+                            <td style="width: 70%;max-width: 0;padding-top: 5px;padding-left:10px;">
+                                $attribute.getValue()
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+                <br>
+            #end
+            #if($includeRelations && $relations.size() > 0)
+                <br>
+                <p style="margin:0;padding:10px 0 0 0;color:#0B212C;font-weight:600">$!msg.get('relations.title')</p>
+                <table style="padding-top: 10px" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        #foreach($relation in $relations)
+                        <tr>
+                            <td style="padding-top:5px">
+                                <b>$relation.getSource().getSignifier()</b>&nbsp;$relation.getType().getRole()
+                                /$relation.getType().getCoRole()&nbsp;<b>$relation.getTarget().getSignifier()</b>
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+                <br>
+            #end
+            <div>
+                $msg.get('task.new.actions')
+                <br>
+                <div style="margin-top:22px">
+                    #foreach($action in $actions)
+                        <a href="$action.mailto" target="_blank"
+                           style="display:inline-block;margin-right:7px;margin-bottom:5px;padding:4px 15px;border-radius:2px;background-color:#11856F;color:white;text-decoration:none">$action.label</a>
+                    #end
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,41 @@
+workflow.notifications.title = Workflow Notifications
+workflow.notifications.task.error.title = We could not properly handle your response.
+
+workflow.notifications.taskassigned.title = Assigned tasks
+workflow.notifications.taskassigned.newtask = A new {0} task has been assigned to you.
+workflow.notifications.taskassigned.businessitem = The associated business item is {0}.
+
+workflow.notifications.votingsubprocess.title = Voting process messages
+workflow.notifications.votingsubprocess.approved = Approved
+workflow.notifications.votingsubprocess.rejected = Rejected
+workflow.notifications.votingsubprocess.reminder.votingtask = There is a voting task assigned to you that is about to expire. Please vote for {0}.
+workflow.notifications.votingsubprocess.reminder.datausageapproval = There is a data usage approval task assigned to you that is about to expire. Please vote for {0}.
+workflow.notifications.votingsubprocess.result.votingtask = A voting for {0} has finished with result: {1}.
+workflow.notifications.votingsubprocess.result.datausageapproval = A data usage approval for {0} has finished with result: {1}.
+
+workflow.notifications.simpleapprovalprocess.title = Simple approval process messages
+workflow.notifications.simpleapprovalprocess.rejected = Asset {0} was rejected.
+workflow.notifications.simpleapprovalprocess.approved = Asset {0} was approved.
+
+workflow.notifications.issuemanagement.title = Issue management messages
+workflow.notifications.issuemanagement.inprogress = A solution for {0} is in progress.
+workflow.notifications.issuemanagement.rejection = The issue {0} was rejected.
+workflow.notifications.issuemanagement.resolution = The issue {0} was resolved.
+
+workflow.notifications.escalationprocess.title = The following tasks escalated
+workflow.notifications.escalationprocess.notify = A task in workflow {0} for {1} escalated. The candidates are {2}.
+workflow.notifications.escalationprocess.reminder = Your task in workflow {0} for {1} escalated. Please complete the task as soon as possible.
+
+workflow.notifications.cancelprocess.title = The following tasks have been cancelled
+workflow.notifications.cancelprocess.cancelled = A workflow with process id: {0} working on business item: {1} was cancelled by {2}.
+
+workflow.notifications.approvalprocess.title = Approval process messages
+workflow.notifications.approvalprocess.approved = Asset {0} was approved.
+workflow.notifications.approvalprocess.rejected = Asset {0} was rejected.
+
+
+
+
+
+
+

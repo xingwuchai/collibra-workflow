@@ -1,0 +1,1 @@
+<p style="padding:0;line-height:20px">$msg.get("requestDataSets.request.approved", "<a href='$item.url'>$item.name</a>")</p>

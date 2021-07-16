@@ -1,0 +1,32 @@
+#parse("email-templates/library/displayComment")
+
+#macro(getMentionResourceName $resourceType)
+    #if($resourceType == "community")
+        $msg.get("ui.core.community").toLowerCase()
+    #elseif($resourceType == "vocabulary")
+        $msg.get("ui.core.domain").toLowerCase()
+    #else
+        $msg.get("ui.core.asset").toLowerCase()
+    #end
+#end
+
+#set($baseUrl = $applicationComponent.getBaseURL())
+#set($resourceType = $resource.getResourceType().toString().toLowerCase())
+
+
+<div style="margin-bottom: 15px;">
+    <a href="${baseUrl}profile/$author.getId()" style="color: #006EC2; text-decoration:none" target="_blank">
+        #if($stringtool.isEmptyOrNull($author.getFirstName()) == false || $stringtool.isEmptyOrNull($author.getLastName()) == false)
+            $author.getFirstName() $author.getLastName()
+        #else
+            $author.getUserName()
+        #end
+    </a>
+    $msg.get("mention.header", "#getMentionResourceName(${resourceType})")
+    <a href="${baseUrl}${resourceType}/$resource.getId()" style="color: #006EC2; text-decoration:none" target="_blank">$resource.getNaturalIdentifier():</a>
+</div>
+<div style="background: #F5F6F7; border: 1px solid #ECEEEF; border-radius: 2px; padding: 15px; margin-bottom: 23px;">
+    #displayComment($commentContent)
+</div>
+<a href="${baseUrl}${resourceType}/$resource.getId()?comment=$commentId&source=email_mention_asset&tabbar=Overview" target="_blank" style="display:inline-block;margin-right:7px;padding:4px 15px;border-radius:2px;background-color:#11856F;color:white;text-decoration:none">$msg.get("mention.open")</a>
+<a href="${baseUrl}profile/$recipient.getId()?tabbar=mentions&source=email_mention_overview" target="_blank" style="display:inline-block;padding:4px 15px;border-radius:2px;background-color:#ECEEEF;color:#0B212C;text-decoration:none">$msg.get("mention.seeAll")</a>

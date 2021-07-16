@@ -1,0 +1,1 @@
+$msg.get("workflow.notifications.issuemanagement.inprogress", "<a href='$item.url'>$item.name</a>")

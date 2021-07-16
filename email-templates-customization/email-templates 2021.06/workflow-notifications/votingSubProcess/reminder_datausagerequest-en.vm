@@ -1,0 +1,1 @@
+$msg.get("workflow.notifications.votingsubprocess.reminder.datausageapproval", "<a href='$item.url'>$item.name</a>")
