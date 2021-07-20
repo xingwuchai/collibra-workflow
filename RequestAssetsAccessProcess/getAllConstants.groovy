@@ -175,10 +175,11 @@ execution.setVariable('gvAttributeTypeIdSecurityClassification', getAttributeTyp
 
 execution.setVariable('gvUserGroupDataPrivacyOfficer', 'Data Privacy Officer')
 
-String userTaskDocApproveRejectReroutePrivacy =
-  '<div>Please approve or reject the request, and add your comment here.</div>' +
-  '<div>If you need to consult with the Privacy Officer, please click the VIEW TASK button to the right and you can then send a message to ask for their input, which will be added in the Comments section at the bottom of the page.</div>'
+String userTaskDocApproveRejectReroutePrivacy = '<div>Please approve or reject the request, and add your comment here.</div>'
+String userTaskDespApproveRejectReroutePrivacy = '<p><div>What is your reason for approving/rejecting?</div>' +
+  '<div>Or if you need to consult with the Privacy Officer, please add your questions or comments here, which will be added in the Comments section at the bottom of Data Access Request.</div></p>'
 execution.setVariable('gvUserTaskDocApproveRejectReroutePrivacy', userTaskDocApproveRejectReroutePrivacy)
+execution.setVariable('gvUserTaskDespApproveRejectReroutePrivacy', userTaskDespApproveRejectReroutePrivacy)
 
 String userTaskDocApproveRejectRerouteDataTrustee =
   '<div>Please approve or reject the request, and add your comment here.</div>' +
@@ -190,7 +191,7 @@ execution.setVariable('gvUserTaskDocApproveRejectByDataTrustee', userTaskDocAppr
 
 String userTaskDocReviewRequestAddComment =
 '<div>The Business Data Steward has asked you to review this Data Access Request.</div>' +
-'<div>Please click on the VIEW TASK button to review and make comments.</div>'
+'<div>Please review and make comments.</div>'
 execution.setVariable('gvUserTaskDocReviewRequestAddComment', userTaskDocReviewRequestAddComment)
 
 loggerApi.info('gvRelationTypeIdRoleIsessentialfor=' + execution.getVariable('gvRelationTypeIdRoleIsessentialfor'))
