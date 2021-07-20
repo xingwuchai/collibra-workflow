@@ -20,15 +20,36 @@
 	  Dear Business Data Steward,
 	</p>
 	<p>
-	  A new Data Access Request has been made in Collibra. Please go to <a href='$item.url'>this page</a> to review the request. Then, you can Approve, Reject or reroute it to the Privacy Officer for input that will be added to the Comments section at the bottom of the page.
+	  A new Data Access Request has been made in Collibra. Please go to this page to review Data Access Request <a href='$item.url'>$item.name</a>. Then, you can Approve, Reject or reroute it to the Privacy Officer for input that will be added to the Comments section at the bottom of the page.
 	</p>
 #elseif ($task.title == "Review Request and Add Comment")
 	<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">
 	  Dear Data Privacy Officer,
 	</p>
 	<p>
-		A new Data Access Request has been made and the Business Data Steward is asking for your input.  Please visit <a href="$item.url">this page</a> to review the request and then add your input in the Comments Section at the bottom of the page. After completing the task, click the DONE button.
+	  A new Collibra Data Access Request has been made and the Business Data Steward is asking for your input. Please visit this page to review Data Access Request <a href='$item.url'>$item.name</a> and then add your input in the Comments Section at the bottom of the page. After completing the task, click the DONE button in this task pane.
 	</p>
+#elseif ($task.title == "Approve, Reject, or Reroute Data Trustee")
+	<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">
+	  Dear Business Data Steward,
+	</p>
+	<p>
+    The Data Privacy Officer has entered comments for Data Access Request <a href='$item.url'>$item.name</a>. Please visit this page and check the Comments area at the bottom of the page to see the Privacy input.
+  </p>
+#elseif ($task.title == "Approve, or Reject by Data Trustee")
+	<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">
+	  Dear Data Trustee,
+	</p>
+	<p>
+    A new Collibra Data Access Request has been sent to you by your Business Data Steward. Please visit this page to review the Data Access Request <a href='$item.url'>$item.name</a> including a link to the proposed Data Sharing Agreement. Please Approve or Reject the request. We'll also need you to fill out the Business Reason for your decision. When yoiu're finished, please notify the Business Data Steward.
+  </p>
+#elseif ($task.title == "Request Stewards action")
+	<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">
+	  Dear Technical Data Steward,
+	</p>
+	<p>
+    A new technical action task has been assigned to you in reference to Collibra Data Access Request <a href='$item.url'>$item.name</a>.  The request has been approved and action is needed from you to grant the requester access to the related data. Please visit this page to review the request. 
+  </p>
 #else
 	<p style="margin:0;padding:0;font-size:14px;font-weight:600;color:#0B212C;line-height:22px">
     $msg.get("workflow.notifications.taskassigned.newtask", "<a href='$url'>$task.title</a>")
