@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter
 import java.time.LocalDate
 import com.collibra.dgc.core.api.dto.instance.asset.ChangeAssetRequest
 import com.collibra.dgc.core.api.dto.instance.relation.FindRelationsRequest
+import com.collibra.dgc.core.api.dto.user.FindUsersRequest
+import com.collibra.dgc.core.api.model.user.User
 
 def setAssetAttributesByVariableName(assetId, attributeTypeId, variableName) {
   loggerApi.info('setAssetAttributesByVariableName, ' + attributeTypeId + ', ' + variableName)
@@ -52,6 +54,10 @@ setAssetAttributesByVariableName(item.id, execution.getVariable('gvAttributeType
 setAssetAttributesByVariableName(item.id, execution.getVariable('gvAttributeTypeIdDataAggregation'), 'dataAggregation')
 setAssetAttributesByVariableName(item.id, execution.getVariable('gvAttributeTypeIdDataFilters'), 'dataFilters')
 
+// submitter name
+User user = userApi.getUserByUsername(requester)
+setAssetAttributesByValue(item.id, execution.getVariable('gvAttributeTypeIdSubmitterName'), user.getFirstName() + ' ' + user.getLastName())
+  
 // current date
 FORMATTER = DateTimeFormatter.ofPattern('yyyy-MM-dd')
 LocalDate date = LocalDate.now()

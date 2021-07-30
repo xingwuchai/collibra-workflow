@@ -25,10 +25,8 @@ if (requestedDataAssetId != null) {
 	if (attachments != null && attachments.size() > 0) {
 	  loggerApi.info('attachemnt id=' + attachments.first().getId().toString())
 	  String termsValue =
-	    '<p>Please review the attached terms of use.</p>' +
-	    '<p>By clicking "I accept" buton, you agree the terms of use</p>' +
-	    '<p>If you are not sure what to do now, you may use the X button on the upper-right corner to stop here, then come back later by click the "Tasks" icon</p>' +
-	    '<a href="/rest/2.0/attachments/' +  attachments.first().getId().toString() + '/file">Terms of use</a>'
+	    '<p>Click on the Terms of Use and Accept to gain access to the data set. After you click I Accept, a Technical Data Steward will be assigned to submit your ticket.</p>' +
+	    '<p><a href="/rest/2.0/attachments/' +  attachments.first().getId().toString() + '/file">Terms of Use</a></p>'
 	  execution.setVariable('gvTermsValue', termsValue)
 	  execution.setVariable('gvHasTermsOfUse', true)
 	} else {

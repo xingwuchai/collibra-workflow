@@ -21,8 +21,10 @@ User decisionMaker = userApi.getUserByUsername(execution.getVariable('gvDecision
 String requestShortName = execution.getVariable('requestShortName')
 
 Asset accessRequestDecision = assetApi.addAsset(AddAssetRequest.builder()
-  .name(dataAccessName + '.' + decisionMaker.getUserName())
-  .displayName(dataAccessName + '.' + decisionMaker.getUserName())
+  //.name(dataAccessName + '.' + decisionMaker.getUserName())
+  //.displayName(dataAccessName + '.' + decisionMaker.getUserName())
+  .name(dataAccessName + '.dec')
+  .displayName(dataAccessName + '.dec')
   .typeId(string2Uuid(execution.getVariable('gvAssetTypeIdAccessRequestDecision')))
   .domainId(domainId)
   .build())

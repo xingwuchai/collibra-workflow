@@ -59,6 +59,7 @@ ROLE_OWNER = 'Owner'
 ROLE_BUSINESS_DATA_STEWARD = 'Business Data Steward'
 ROLE_TECHNICAL_DATA_STEWARD = 'Technical Data Steward'
 ROLE_DATA_TRUSTEE = 'Data Trustee'
+ROLE_REQUESTER = 'Requester'
 ROLE_SUBMITTER = 'Submitter'
 ROLE_DATA_ANALYST_LEVEL_2 = 'Data Analyst Level 2'
 
@@ -78,6 +79,7 @@ ATTRIBUTE_TYPE_DECISION_REASON = 'Decision Reason'
 ATTRIBUTE_TYPE_DECISION_SHORT_NAME = 'Access Decision Short Name'
 ATTRIBUTE_TYPE_REQUEST_SHORT_NAME = 'Request Short Name'
 ATTRIBUTE_TYPE_SUBMISSION_DATE = 'Submission Date'
+ATTRIBUTE_TYPE_SUBMITTER_NAME = 'Submitter Name'
 ATTRIBUTE_TYPE_SECURITY_CLASSIFICATION = 'Security Classification'
 
 def getAttributeTypeIdByName(name) {
@@ -153,6 +155,7 @@ execution.setVariable('gvRoleIdOwner', getRoleIdByName(ROLE_OWNER))
 execution.setVariable('gvRoleIdBusinessDataSteward', getRoleIdByName(ROLE_BUSINESS_DATA_STEWARD))
 execution.setVariable('gvRoleIdTechnicalDataSteward', getRoleIdByName(ROLE_TECHNICAL_DATA_STEWARD))
 execution.setVariable('gvRoleIdDataTrustee', getRoleIdByName(ROLE_DATA_TRUSTEE))
+execution.setVariable('gvRoleIdRequester', getRoleIdByName(ROLE_REQUESTER))
 execution.setVariable('gvRoleIdSubmitter', getRoleIdByName(ROLE_SUBMITTER))
 execution.setVariable('gvRoleIdDataAnalystlevel2', getRoleIdByName(ROLE_DATA_ANALYST_LEVEL_2))
 
@@ -171,28 +174,27 @@ execution.setVariable('gvAttributeTypeIdDecisionReason', getAttributeTypeIdByNam
 execution.setVariable('gvAttributeTypeIdDecisionShortName', getAttributeTypeIdByName(ATTRIBUTE_TYPE_DECISION_SHORT_NAME))
 execution.setVariable('gvAttributeTypeIdRequestShortName', getAttributeTypeIdByName(ATTRIBUTE_TYPE_REQUEST_SHORT_NAME))
 execution.setVariable('gvAttributeTypeIdSubmissionDate', getAttributeTypeIdByName(ATTRIBUTE_TYPE_SUBMISSION_DATE))
+execution.setVariable('gvAttributeTypeIdSubmitterName', getAttributeTypeIdByName(ATTRIBUTE_TYPE_SUBMITTER_NAME))
 execution.setVariable('gvAttributeTypeIdSecurityClassification', getAttributeTypeIdByName(ATTRIBUTE_TYPE_SECURITY_CLASSIFICATION))
 
 execution.setVariable('gvUserGroupDataPrivacyOfficer', 'Data Privacy Officer')
 
-String userTaskDocApproveRejectReroutePrivacy = '<div>Please approve or reject the request, and add your comment here.</div>'
-String userTaskDespApproveRejectReroutePrivacy = '<p><div>What is your reason for approving/rejecting?</div>' +
+String userTaskDocApproveRejectReroutePrivacy = '<div>Please disposition this request.</div>'
+String userTaskDespApproveRejectReroutePrivacy = '<p><h3>Add Comments</h3><div>What is your reason for approving/rejecting?</div>' +
   '<div>Or if you need to consult with the Privacy Officer, please add your questions or comments here, which will be added in the Comments section at the bottom of Data Access Request.</div></p>'
 execution.setVariable('gvUserTaskDocApproveRejectReroutePrivacy', userTaskDocApproveRejectReroutePrivacy)
 execution.setVariable('gvUserTaskDespApproveRejectReroutePrivacy', userTaskDespApproveRejectReroutePrivacy)
 
-String userTaskDocApproveRejectRerouteDataTrustee =
-  '<div>Please approve or reject the request, and add your comment here.</div>' +
-  '<div>If you need to consult with the Data Trustee, please click the Reroute button.</div>'
+String userTaskDocApproveRejectRerouteDataTrustee = '<div>Send comments and/or the DSA link to the Data Trustee.</div>'
 execution.setVariable('gvUserTaskDocApproveRejectRerouteDataTrustee', userTaskDocApproveRejectRerouteDataTrustee)
 
-String userTaskDocApproveRejectByDataTrustee = '<div>Please approve or reject the request, and add your comment here.</div>'
+String userTaskDocApproveRejectByDataTrustee = '<div>Approve or Reject the Request and add your reason.</div>'
 execution.setVariable('gvUserTaskDocApproveRejectByDataTrustee', userTaskDocApproveRejectByDataTrustee)
 
-String userTaskDocReviewRequestAddComment =
-'<div>The Business Data Steward has asked you to review this Data Access Request.</div>' +
-'<div>Please review and make comments.</div>'
+String userTaskDocReviewRequestAddComment = '<div>Please review this Data Access Request.</div>'
+String userTaskDesReviewRequestAddComment = '<div>Please review the Request and add Comments for the Data Steward to the bottom of the Access Request page.</div>'
 execution.setVariable('gvUserTaskDocReviewRequestAddComment', userTaskDocReviewRequestAddComment)
+execution.setVariable('gvUserTaskDesReviewRequestAddComment', userTaskDesReviewRequestAddComment)
 
 loggerApi.info('gvRelationTypeIdRoleIsessentialfor=' + execution.getVariable('gvRelationTypeIdRoleIsessentialfor'))
 loggerApi.info('gvRelationTypeIdRoleDecides=' + execution.getVariable('gvRelationTypeIdRoleDecides'))
@@ -219,6 +221,7 @@ loggerApi.info('gvRoleIdOwner=' + execution.getVariable('gvRoleIdOwner'))
 loggerApi.info('gvRoleIdBusinessDataSteward=' + execution.getVariable('gvRoleIdBusinessDataSteward'))
 loggerApi.info('gvRoleIdTechnicalDataSteward=' + execution.getVariable('gvRoleIdTechnicalDataSteward'))
 loggerApi.info('gvRoleIdDataTrustee=' + execution.getVariable('gvRoleIdDataTrustee'))
+loggerApi.info('gvRoleIdRequester=' + execution.getVariable('gvRoleIdRequester'))
 loggerApi.info('gvRoleIdSubmitter=' + execution.getVariable('gvRoleIdSubmitter'))
 loggerApi.info('gvRoleIdDataAnalystlevel2=' + execution.getVariable('gvRoleIdDataAnalystlevel2'))
 
@@ -237,4 +240,5 @@ loggerApi.info('gvAttributeTypeIdDecisionReason=' + execution.getVariable('gvAtt
 loggerApi.info('gvAttributeTypeIdDecisionShortName=' + execution.getVariable('gvAttributeTypeIdDecisionShortName'))
 loggerApi.info('gvAttributeTypeIdRequestShortName=' + execution.getVariable('gvAttributeTypeIdRequestShortName'))
 loggerApi.info('gvAttributeTypeIdSubmissionDate=' + execution.getVariable('gvAttributeTypeIdSubmissionDate'))
+loggerApi.info('gvAttributeTypeIdSubmitterName=' + execution.getVariable('gvAttributeTypeIdSubmitterName'))
 loggerApi.info('gvAttributeTypeIdSecurityClassification=' + execution.getVariable('gvAttributeTypeIdSecurityClassification'))
